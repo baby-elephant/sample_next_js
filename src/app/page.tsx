@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -59,6 +60,12 @@ export default function Home() {
           >
             Documentation
           </a>
+          <Link className={styles.secondary} href="/bento">
+            Bento Parallel Routes
+          </Link>
+          <Link className={styles.secondary} href="/message">
+            Intercepted Routes (Modal)
+          </Link>
         </div>
       </main>
     </div>
