@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getMessage } from "./messages";
+import { getMessageById } from "./_lib/messages";
 
 export default async function MessageDetails({ id }: { id: string }) {
-  const message = getMessage(id);
+  const message = await getMessageById(id);
 
   if (!message) {
     return (
@@ -25,4 +25,3 @@ export default async function MessageDetails({ id }: { id: string }) {
     </article>
   );
 }
-

@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { messages } from "./messages";
 import styles from "./message.module.css";
+import MessageCreateForm from "./MessageCreateForm";
+import { listMessages } from "./_lib/messages";
 
-export default function MessageListPage() {
+export default async function MessageListPage() {
+  const messages = await listMessages();
+
   return (
     <main className={styles.page}>
       <h1>Messages</h1>
@@ -10,6 +13,8 @@ export default function MessageListPage() {
         From this list, navigating to <code>/message/[id]</code> is intercepted and rendered in
         the <code>/message</code> segment&apos;s <code>@modal</code> slot.
       </p>
+
+      <MessageCreateForm />
 
       <div className={styles.list}>
         {messages.map((m) => (
