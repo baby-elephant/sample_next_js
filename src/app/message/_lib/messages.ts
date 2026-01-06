@@ -23,6 +23,10 @@ const dataFilePath = path.join(
   "messages.json",
 );
 
+function isErrnoException(value: unknown): value is NodeJS.ErrnoException {
+  return value instanceof Error && typeof (value as NodeJS.ErrnoException).code === "string";
+}
+
 async function readMessages(): Promise<Message[]> {
   try {
     const raw = await readFile(dataFilePath, "utf8");
@@ -30,7 +34,7 @@ async function readMessages(): Promise<Message[]> {
     if (!Array.isArray(parsed)) return [];
     return parsed.filter(isMessage);
   } catch (error) {
-    if (error instanceof Error && "code" in error && (error as any).code === "ENOENT") {
+    if (isErrnoException(error) && error.code === "ENOENT") {
       return [];
     }
     throw error;
