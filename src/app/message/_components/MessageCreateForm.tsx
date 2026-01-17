@@ -4,7 +4,11 @@ import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
 
-import styles from "./message.module.css";
+// styles.create のように CSSをオブジェクトとしてimportして使いたい場合、
+// そのCSSは CSS Modules である必要があり、
+// Next.jsでは通常 *.module.css がそれです（例: messageCreateForm.module.css）。
+// *.css のままだと styles は作れません。
+import styles from "./messageCreateForm.module.css";
 
 export default function MessageCreateForm() {
   const router = useRouter();

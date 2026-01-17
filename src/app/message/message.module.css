@@ -33,73 +33,6 @@
   font-size: 14px;
 }
 
-.create {
-  margin-top: 18px;
-  padding: 14px 16px;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.createTitle {
-  margin: 0;
-  font-size: 16px;
-}
-
-.createRow {
-  margin-top: 10px;
-  display: grid;
-  gap: 10px;
-}
-
-.createField {
-  display: grid;
-  gap: 6px;
-}
-
-.createLabel {
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-.createInput,
-.createTextarea {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.createTextarea {
-  resize: vertical;
-}
-
-.createActions {
-  margin-top: 10px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.createButton {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 999px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-}
-
-.createButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.createError {
-  font-size: 13px;
-  opacity: 0.9;
-}
-
 @media (prefers-color-scheme: dark) {
   .item {
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -108,23 +41,5 @@
 
   .item:hover {
     background: rgba(255, 255, 255, 0.07);
-  }
-
-  .create {
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .createInput,
-  .createTextarea {
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(0, 0, 0, 0.2);
-    color: inherit;
-  }
-
-  .createButton {
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.07);
-    color: inherit;
   }
 }

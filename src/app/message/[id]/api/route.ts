@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { deleteMessage, getMessageById, updateMessage } from "../../_lib/messages";
-import { messageIdSchema, updateMessageBodySchema } from "../schema";
+import { messageIdSchema, updateMessageBodySchema } from "./schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

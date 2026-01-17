@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./message.module.css";
-import MessageCreateForm from "./MessageCreateForm";
+import MessageCreateForm from "./_components/MessageCreateForm";
 import { listMessages } from "./_lib/messages";
 
 export default async function MessageListPage() {

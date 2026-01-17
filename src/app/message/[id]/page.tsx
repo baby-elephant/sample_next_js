@@ -1,4 +1,4 @@
-import MessageDetails from "../MessageDetails";
+import MessageDetails from "./_components/MessageDetails";
 
 export default async function MessagePage({
   params,

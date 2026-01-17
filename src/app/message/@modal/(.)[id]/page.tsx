@@ -1,5 +1,5 @@
 import Modal from "@/app/_components/Modal";
-import MessageDetails from "@/app/message/MessageDetails";
+import MessageDetails from "@/app/message/[id]/_components/MessageDetails";
 
 export default async function InterceptedMessagePage({
   params,

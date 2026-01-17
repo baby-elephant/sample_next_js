@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getMessageById } from "./_lib/messages";
+import { getMessageById } from "../../_lib/messages";
 
 export default async function MessageDetails({ id }: { id: string }) {
   const message = await getMessageById(id);
