@@ -1,32 +1,36 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import type { FormEvent } from "react";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 // styles.create のように CSSをオブジェクトとしてimportして使いたい場合、
 // そのCSSは CSS Modules である必要があり、
 // Next.jsでは通常 *.module.css がそれです（例: messageCreateForm.module.css）。
 // *.css のままだと styles は作れません。
 import styles from "./messageCreateForm.module.css";
+import { createMessageBodySchema, type CreateMessageBody } from "../api/schema";
 
 export default function MessageCreateForm() {
   const router = useRouter();
-  const [subject, setSubject] = useState("");
-  const [body, setBody] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+    reset,
+  } = useForm<CreateMessageBody>({
+    resolver: zodResolver(createMessageBodySchema),
+    defaultValues: { subject: "", body: "" },
+    mode: "onChange",
+  });
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError(null);
-    setIsSubmitting(true);
-
+  const onSubmit = handleSubmit(async (values) => {
     try {
       const res = await fetch("/message/api", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ subject, body }),
+        body: JSON.stringify(values),
       });
 
       if (!res.ok) {
@@ -34,41 +38,59 @@ export default function MessageCreateForm() {
         throw new Error(data?.error ?? "Failed to create message");
       }
 
-      setSubject("");
-      setBody("");
+      reset();
       router.refresh();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to create message");
-    } finally {
-      setIsSubmitting(false);
+      setError("root", {
+        message: e instanceof Error ? e.message : "Failed to create message",
+      });
     }
-  }
+  });
+
+  const subjectError = errors.subject?.message;
+  const bodyError = errors.body?.message;
+  const rootError = errors.root?.message;
 
   return (
-    <form onSubmit={onSubmit} className={styles.create}>
+    <form
+      onSubmit={onSubmit}
+      className={styles.create}
+      noValidate
+      aria-busy={isSubmitting}
+    >
       <h2 className={styles.createTitle}>Create (MVP)</h2>
       <div className={styles.createRow}>
         <label className={styles.createField}>
           <div className={styles.createLabel}>Subject</div>
           <input
             className={styles.createInput}
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
+            {...register("subject")}
             placeholder="Hello"
-            required
+            aria-invalid={Boolean(subjectError)}
+            aria-describedby={subjectError ? "message-subject-error" : undefined}
           />
+          {subjectError ? (
+            <div className={styles.createFieldError} id="message-subject-error">
+              {subjectError}
+            </div>
+          ) : null}
         </label>
 
         <label className={styles.createField}>
           <div className={styles.createLabel}>Body</div>
           <textarea
             className={styles.createTextarea}
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+            {...register("body")}
             placeholder="Write something..."
             rows={3}
-            required
+            aria-invalid={Boolean(bodyError)}
+            aria-describedby={bodyError ? "message-body-error" : undefined}
           />
+          {bodyError ? (
+            <div className={styles.createFieldError} id="message-body-error">
+              {bodyError}
+            </div>
+          ) : null}
         </label>
       </div>
 
@@ -76,7 +98,7 @@ export default function MessageCreateForm() {
         <button className={styles.createButton} disabled={isSubmitting}>
           {isSubmitting ? "Creating..." : "Create"}
         </button>
-        {error ? <div className={styles.createError}>{error}</div> : null}
+        {rootError ? <div className={styles.createError}>{rootError}</div> : null}
       </div>
     </form>
   );
