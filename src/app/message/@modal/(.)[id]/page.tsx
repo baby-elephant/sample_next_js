@@ -1,5 +1,5 @@
 import Modal from "@/app/_components/Modal";
-import MessageDetails from "@/app/message/[id]/_components/MessageDetails";
+import MessagePage from "../../[id]/page";
 
 export default async function InterceptedMessagePage({
   params,
@@ -10,7 +10,7 @@ export default async function InterceptedMessagePage({
 
   return (
     <Modal title={`Message #${id}`}>
-      <MessageDetails id={id} />
+      <MessagePage params={params} />
     </Modal>
   );
 }
