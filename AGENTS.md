@@ -30,6 +30,7 @@
 - Use `*.module.css` for route-level or component-level scoped styles. Global styles belong in `src/app/globals.css`.
 - Import order is typically framework imports first, then third-party packages, then local modules and styles.
 - The codebase supports the `@/*` alias from `tsconfig.json`. Use it when it improves readability, but route-local relative imports are also common.
+- Build forms with `react-hook-form`, and define validation schemas with `zod`.
 
 ## Collocation Rules
 - Prefer colocating route-specific code with the route that owns it.
